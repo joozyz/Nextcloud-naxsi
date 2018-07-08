@@ -349,7 +349,7 @@ ssl_certificate_key /etc/ssl/private/ssl-cert-snakeoil.key;
 ssl_trusted_certificate /etc/ssl/certs/ssl-cert-snakeoil.pem;
 #ssl_certificate /etc/letsencrypt/live/YOUR.DEDYN.IO/fullchain.pem;
 #ssl_certificate_key /etc/letsencrypt/live/YOUR.DEDYN.IO/privkey.pem;
-#ssl_trusted_certificate /etc/letsencrypt/live/YOUR.DEDYN.IO/fullchain.pem;
+#ssl_trusted_certificate /etc/letsencrypt/live/YOUR.DEDYN.IO/chain.pem;
 #ssl_dhparam /etc/ssl/certs/dhparam.pem;
 ssl_session_timeout 1d;
 ssl_session_cache shared:SSL:50m;
