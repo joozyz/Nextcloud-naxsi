@@ -541,6 +541,10 @@ maxretry = 3
 bantime = 36000
 findtime = 36000
 logpath = /var/nc_data/nextcloud.log
+
+[nginx-http-auth]
+enabled = true
+
 EOF
 update_and_clean
 ###install ufw
