@@ -36,8 +36,8 @@ update_and_clean
 apt install software-properties-common zip unzip screen curl ffmpeg libfile-fcntllock-perl -y
 apt remove nginx nginx-common nginx-full -y --allow-change-held-packages
 ###add the neccessary sources
-sed -i '$adeb http://nginx.org/packages/ubuntu/ xenial nginx' /etc/apt/sources.list
-sed -i '$adeb-src http://nginx.org/packages/ubuntu/ xenial nginx' /etc/apt/sources.list
+sed -i '$adeb http://nginx.org/packages/mainline/ubuntu/ bionic nginx' /etc/apt/sources.list
+sed -i '$adeb-src http://nginx.org/packages/mainline/ubuntu/ bionic nginx' /etc/apt/sources.list
 wget http://nginx.org/keys/nginx_signing.key && apt-key add nginx_signing.key
 update_and_clean
 ###instal NGINX
