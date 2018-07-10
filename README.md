@@ -1,20 +1,17 @@
 # c-rieger.de - install Nextcloud using a shell script
-Install, optimize and harden your self hosted Nextcloud (based on Ubuntu 18.04 LTS 64Bit) using two shell scripts only.
-
-The initial script (install-nextcloud.sh) will install and optimize your self hosted Nextcloud within few minutes fully automated. Your server will be built of:
+The initial script (install-nextcloud.sh) will install your self hosted Nextcloud within few minutes fully automated. Your server will be built of:
 
     Fail2Ban (Nextcloud and SSH jails)
     MariaDB
-    Nextcloud (latest)
-    NGINX (latest)
+    Nextcloud 13.0.4
+    NGINX 1.15. 1
     OpenSSL 1.1.0h
     PHP 7.2.7
     Redis-Server
-    self signed certificates or Let's Encrypt SSL
+    self signed or Let's Encrypt SSL using the second script
     UFW (22, 80, 443)
 
-The only precondition is to use Ubuntu 18.04 LTS 64Bit as your server OS.
-At least (optionally) you may request a ssl certificate from letsencrypt by issuing the second script called "ssl-certificat.sh".
+The only precondition for the install-nextcloud.sh script is to utilize Ubuntu 18.04 LTS as your on-prem server OS. Optionally request your ssl certificate from Let's Encrypt by issuing the second script called "ssl-certificate.sh".
 
 Ready to go? Let's start:
 
