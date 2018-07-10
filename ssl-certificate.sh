@@ -76,4 +76,5 @@ echo " Call: https://$DYNDNSNAME and enjoy your Nextcloud"
 echo ""
 echo "++++++++++++++++++++++++++++++++++++++++++++++++++++"
 fi
+history -c && history -w
 exit 0
