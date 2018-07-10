@@ -1,9 +1,9 @@
 #######################################################
 # Carsten Rieger IT-Services
 # SSL-CERTIFICATE.SH
-# Version 1.0
-# April 20th, 2018
-# Version 1.0: initial script
+# Version 1.1
+# July, 9th, 2018
+# Version 1.1: initial script
 #######################################################
 #!/bin/bash
 ###global function to update and cleanup the environment
