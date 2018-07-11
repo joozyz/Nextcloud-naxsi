@@ -3,9 +3,9 @@
 # https://www.c-rieger.de
 # https://github.com/riegercloud
 # INSTALL-NEXTCLOUD.SH
-# Version 3.4
-# amendments to fail2ban
-# July, 9th, 2018
+# Version 3.5
+# added wget and git to be installed at the beginning
+# July, 11th, 2018
 #######################################################
 # Ubuntu 18.04 LTS
 #######################################################
