@@ -34,7 +34,7 @@ ufw status verbose
 cd /usr/local/src
 update_and_clean
 ###prepare the server environment
-apt install software-properties-common zip unzip screen curl ffmpeg libfile-fcntllock-perl -y
+apt install software-properties-common zip unzip screen curl git wget ffmpeg libfile-fcntllock-perl -y
 apt remove nginx nginx-common nginx-full -y --allow-change-held-packages
 ###add the neccessary sources
 sed -i '$adeb http://nginx.org/packages/mainline/ubuntu/ bionic nginx' /etc/apt/sources.list
