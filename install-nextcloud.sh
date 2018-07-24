@@ -1,14 +1,15 @@
-#######################################################
+############################################################
 # Carsten Rieger IT-Services
 # https://www.c-rieger.de
 # https://github.com/riegercloud
 # INSTALL-NEXTCLOUD.SH
-# Version 3.5
-# added wget and git to be installed at the beginning
-# July, 11th, 2018
-#######################################################
-# Ubuntu 18.04 LTS
-#######################################################
+# Version 3.6
+# Solved Issue 22 - rows 41-51:
+# https://github.com/riegercloud/install-nextcloud/issues/22
+# July, 24th, 2018
+############################################################
+# Ubuntu 18.04 LTS - Nextcloud 13.0.5
+############################################################
 #!/bin/bash
 ###global function to update and cleanup the environment
 function update_and_clean() {
