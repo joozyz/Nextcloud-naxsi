@@ -39,8 +39,6 @@ apt install software-properties-common zip unzip screen curl git wget ffmpeg lib
 apt remove nginx nginx-common nginx-full -y --allow-change-held-packages
 ###add the neccessary sources
 if [ ! -f /etc/apt/sources.list.d/nginx.list ]; then
-touch /etc/apt/sources.list.d/nginx.list
-wget http://nginx.org/keys/nginx_signing.key && apt-key add nginx_signing.key
 cat <<EOF > /etc/apt/sources.list.d/nginx.list
 deb http://nginx.org/packages/mainline/ubuntu/ bionic nginx
 deb-src http://nginx.org/packages/mainline/ubuntu/ bionic nginx
