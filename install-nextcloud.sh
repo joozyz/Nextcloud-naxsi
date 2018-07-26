@@ -36,7 +36,7 @@ clear
 echo ""
 echo "*********************************************************"
 echo "You will be asked to set the MariaDB root password twice."
-echo " "
+echo ""
 echo "Please just confirm the dialogue (ENTER)."
 echo "You will be asked again to set the root pwd"
 echo "while harden your MariaDB Server!"
