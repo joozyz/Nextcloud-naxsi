@@ -30,6 +30,24 @@ sudo -u www-data php /var/www/nextcloud/occ files:scan-app-data
 fail2ban-client status nextcloud
 ufw status verbose
 }
+###global function to show information regarding the upcoming MariaDB dialogue
+function mariadbinfo() {
+clear
+echo ""
+echo "*********************************************************"
+echo "You will be asked to set the MariaDB root password twice."
+echo " "
+echo "Please just confirm the dialogue (*ENTER*)!"
+echo "You will be asked again to set the root pwd"
+echo "while harden your MariaDB Server!"
+echo " "
+echo "*********************************************************"
+echo " "
+echo "Press ENTER to install MariaDB"
+read
+clear
+}
+### START ###
 cd /usr/local/src
 update_and_clean
 ###prepare the server environment
@@ -196,6 +214,7 @@ deb [arch=amd64] http://ftp.hosteurope.de/mirror/mariadb.org/repo/10.3/ubuntu bi
 deb-src http://ftp.hosteurope.de/mirror/mariadb.org/repo/10.3/ubuntu bionic main
 EOF
 fi
+mariadbinfo
 apt update && apt install mariadb-server -y
 /usr/sbin/service mysql stop
 ###configure MariaDB
