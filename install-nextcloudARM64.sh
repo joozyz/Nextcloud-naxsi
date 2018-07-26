@@ -1,13 +1,13 @@
-#######################################################
+############################################
 # Carsten Rieger IT-Services
 # https://www.c-rieger.de
 # https://github.com/riegercloud
-# INSTALL-NEXTCLOUD.SH
-# Version 3.1
-# May 14th, 2018
-#######################################################
-# Ubuntu 16.04.4 LTS
-#######################################################
+# INSTALL-NEXTCLOUDARM64.SH
+# Version 4.0 ARM64
+# July, 26th, 2018
+############################################
+# Ubuntu 18.04 LTS ARM64 - Nextcloud 13.0.5
+############################################
 #!/bin/bash
 ###global function to update and cleanup the environment
 function update_and_clean() {
@@ -33,12 +33,18 @@ ufw status verbose
 cd /usr/local/src
 update_and_clean
 ###prepare the server environment
-apt install software-properties-common zip unzip screen curl ffmpeg libfile-fcntllock-perl -y
+apt install software-properties-common zip unzip screen curl git wget ffmpeg libfile-fcntllock-perl -y
 apt remove nginx nginx-common nginx-full -y --allow-change-held-packages
 ###add the neccessary sources
-sed -i '$adeb http://nginx.org/packages/ubuntu/ xenial nginx' /etc/apt/sources.list
-sed -i '$adeb-src http://nginx.org/packages/ubuntu/ xenial nginx' /etc/apt/sources.list
+if [ ! -f /etc/apt/sources.list.d/nginx.list ]; then
+cat <<EOF > /etc/apt/sources.list.d/nginx.list
+deb http://nginx.org/packages/mainline/ubuntu/ bionic nginx
+deb-src http://nginx.org/packages/mainline/ubuntu/ bionic nginx
+EOF
+fi
+if [ ! -f /usr/local/src/nginx_signing.key ]; then
 wget http://nginx.org/keys/nginx_signing.key && apt-key add nginx_signing.key
+fi
 update_and_clean
 ###instal NGINX
 apt install nginx -y
@@ -215,7 +221,8 @@ default-character-set = utf8mb4
 [mysqld]
 character-set-server = utf8mb4
 collation-server = utf8mb4_general_ci
-binlog_format = MIXED
+transaction_isolation = READ-COMMITTED
+binlog_format = ROW
 innodb_large_prefix=on
 innodb_file_format=barracuda
 innodb_file_per_table=1
@@ -251,11 +258,11 @@ apt install redis-server php-redis -y
 cp /etc/redis/redis.conf /etc/redis/redis.conf.bak
 sed -i "s/port 6379/port 0/" /etc/redis/redis.conf
 sed -i s/\#\ unixsocket/\unixsocket/g /etc/redis/redis.conf
-sed -i "s/unixsocketperm 700/unixsocketperm 770/" /etc/redis/redis.conf 
+sed -i "s/unixsocketperm 700/unixsocketperm 770/" /etc/redis/redis.conf
 sed -i "s/# maxclients 10000/maxclients 512/" /etc/redis/redis.conf
 usermod -a -G redis www-data
 cp /etc/sysctl.conf /etc/sysctl.conf.bak && sed -i '$avm.overcommit_memory = 1' /etc/sysctl.conf
-cp /etc/rc.local /etc/rc.local.bak && sed -i '$i \sysctl -w net.core.somaxconn=65535' /etc/rc.local
+#cp /etc/rc.local /etc/rc.local.bak && sed -i '$i \sysctl -w net.core.somaxconn=65535' /etc/rc.local
 ###install self signed certificates
 apt install ssl-cert -y
 ###prepare NGINX for Nextcloud and SSL
@@ -349,7 +356,7 @@ ssl_certificate_key /etc/ssl/private/ssl-cert-snakeoil.key;
 ssl_trusted_certificate /etc/ssl/certs/ssl-cert-snakeoil.pem;
 #ssl_certificate /etc/letsencrypt/live/YOUR.DEDYN.IO/fullchain.pem;
 #ssl_certificate_key /etc/letsencrypt/live/YOUR.DEDYN.IO/privkey.pem;
-#ssl_trusted_certificate /etc/letsencrypt/live/YOUR.DEDYN.IO/fullchain.pem;
+#ssl_trusted_certificate /etc/letsencrypt/live/YOUR.DEDYN.IO/chain.pem;
 #ssl_dhparam /etc/ssl/certs/dhparam.pem;
 ssl_session_timeout 1d;
 ssl_session_cache shared:SSL:50m;
@@ -503,7 +510,7 @@ array (
 'preview_max_scale_factor' => 1,
 'redis' =>
 array (
-'host' => '/var/run/redis/redis.sock',
+'host' => '/var/run/redis/redis-server.sock',
 'port' => 0,
 'timeout' => 0.0,
 ),
@@ -540,6 +547,10 @@ maxretry = 3
 bantime = 36000
 findtime = 36000
 logpath = /var/nc_data/nextcloud.log
+
+[nginx-http-auth]
+enabled = true
+
 EOF
 update_and_clean
 ###install ufw
@@ -560,7 +571,7 @@ sudo -u www-data php /var/www/nextcloud/occ app:disable firstrunwizard
 sudo -u www-data php /var/www/nextcloud/occ app:enable admin_audit
 sudo -u www-data php /var/www/nextcloud/occ app:enable files_pdfviewer
 ###clean up redis-server
-redis-cli -s /var/run/redis/redis.sock <<EOF
+redis-cli -s /var/run/redis/redis-server.sock <<EOF
 FLUSHALL
 quit
 EOF
@@ -575,5 +586,5 @@ echo ""
 echo " https://$YOURSERVERNAME"
 echo ""
 echo "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
-history -c && history -w
+rm ~/.bash_history && history -c && history -w
 exit 0
