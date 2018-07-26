@@ -6,7 +6,7 @@ The initial script (install-nextcloud.sh) will install your self hosted Nextclou
     Nextcloud 13.0.5
     NGINX 1.15. 1
     OpenSSL 1.1.0h
-    PHP 7.2.7
+    PHP 7.2.8
     Redis-Server
     self signed or Let's Encrypt SSL using the second script
     UFW (22, 80, 443)
