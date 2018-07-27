@@ -3,8 +3,9 @@
 # https://www.c-rieger.de
 # https://github.com/riegercloud
 # INSTALL-NEXTCLOUD.SH
-# Version 4.0 AMD64
-# July, 26th, 2018
+# Version 4.1 AMD64
+# changes to the /etc/nginx/header.conf
+# July, 27th, 2018
 ############################################
 # Ubuntu 18.04 LTS AMD64 - Nextcloud 13.0.5
 ############################################
@@ -465,7 +466,7 @@ add_header X-Download-Options noopen;
 add_header X-Permitted-Cross-Domain-Policies none;
 add_header X-Content-Type-Options "nosniff" always;
 add_header X-XSS-Protection "1; mode=block" always;
-add_header Referrer-Policy "same-origin" always;
+add_header Referrer-Policy "no-referrer" always;
 EOF
 touch /etc/nginx/optimization.conf
 cat <<EOF >/etc/nginx/optimization.conf
