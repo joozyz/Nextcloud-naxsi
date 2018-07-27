@@ -116,6 +116,12 @@ mkdir -p /var/nc_data /var/www/letsencrypt /usr/local/tmp/cache /usr/local/tmp/s
 chown -R www-data:www-data /upload_tmp /var/nc_data /var/www
 chown -R www-data:root /usr/local/tmp/sessions /usr/local/tmp/cache /usr/local/tmp/apc
 ### prepare the environment for PHP
+if [ ! -f /etc/apt/sources.list.d/php.list ]; then
+cat <<EOF > /etc/apt/sources.list.d/php.list
+deb http://cz.archive.ubuntu.com/ubuntu bionic main universe
+EOF
+apt update
+fi
 apt install language-pack-en-base -y
 sudo LC_ALL=en_US.UTF-8 add-apt-repository ppa:ondrej/php -y
 update_and_clean
