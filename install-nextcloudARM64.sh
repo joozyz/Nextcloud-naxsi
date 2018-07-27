@@ -118,7 +118,7 @@ chown -R www-data:root /usr/local/tmp/sessions /usr/local/tmp/cache /usr/local/t
 ### prepare the environment for PHP
 if [ ! -f /etc/apt/sources.list.d/php.list ]; then
 cat <<EOF > /etc/apt/sources.list.d/php.list
-deb http://cz.archive.ubuntu.com/ubuntu bionic main universe
+deb http://de.archive.ubuntu.com/ubuntu bionic main universe
 EOF
 apt update
 fi
