@@ -1,4 +1,4 @@
-############################################
+#############################################
 # Carsten Rieger IT-Services
 # https://www.c-rieger.de
 # https://github.com/riegercloud
@@ -6,9 +6,10 @@
 # Version 4.1 AMD64
 # changes to the /etc/nginx/header.conf
 # July, 27th, 2018
-############################################
-# Ubuntu 18.04 LTS AMD64 - Nextcloud 13.0.5
-############################################
+##############################################
+# Ubuntu 18.04 LTS AMD64 - Nextcloud 13 
+# ready for Nextcloud 14 already!
+##############################################
 #!/bin/bash
 ###global function to update and cleanup the environment
 function update_and_clean() {
