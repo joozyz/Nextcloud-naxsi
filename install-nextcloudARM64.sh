@@ -1,15 +1,15 @@
-############################################
+################################################
 # Carsten Rieger IT-Services
 # https://www.c-rieger.de
 # https://github.com/riegercloud
 # INSTALL-NEXTCLOUDARM64.SH
 # Version 4.1 ARM64
-# changes to /etc/nginx/header.conf
-# July, 27th, 2018
-############################################
+# changes to the /etc/nginx/nginx.conf+ssl.conf
+# August, 23rd, 2018
+################################################
 # Ubuntu 18.04 LTS ARM64 - Nextcloud 13.0.5
 # ready for Nextcloud 14 already!
-############################################
+################################################
 #!/bin/bash
 ###global function to update and cleanup the environment
 function update_and_clean() {
@@ -103,8 +103,8 @@ open_file_cache_errors on;
 keepalive_timeout 65;
 reset_timedout_connection on;
 server_tokens off;
-resolver 208.67.222.222;
-resolver_timeout 10s;
+resolver 208.67.222.222 valid=30s;
+resolver_timeout 5s;
 include /etc/nginx/conf.d/*.conf;
 }
 EOF
@@ -444,10 +444,10 @@ ssl_trusted_certificate /etc/ssl/certs/ssl-cert-snakeoil.pem;
 ssl_session_timeout 1d;
 ssl_session_cache shared:SSL:50m;
 ssl_session_tickets off;
-ssl_protocols TLSv1.2 TLSv1.3;
-ssl_ciphers 'ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-AES256-GCM-SHA384:DHE-RSA-AES128-GCM-SHA256:DHE-DSS-AES128-GCM-SHA256:kEDH+AESGCM:ECDHE-RSA-AES128-SHA256:ECDHE-ECDSA-AES128-SHA256:ECDHE-RSA-AES128-SHA:ECDHE-ECDSA-AES128-SHA:ECDHE-RSA-AES256-SHA384:ECDHE-ECDSA-AES256-SHA384:ECDHE-RSA-AES256-SHA:ECDHE-ECDSA-AES256-SHA:DHE-RSA-AES128-SHA256:DHE-RSA-AES128-SHA:DHE-DSS-AES128-SHA256:DHE-RSA-AES256-SHA256:DHE-DSS-AES256-SHA:DHE-RSA-AES256-SHA:!aNULL:!eNULL:!EXPORT:!DES:!RC4:!3DES:!MD5:!PSK:!AES128';
+ssl_protocols TLSv1.2;
+ssl_ciphers 'ECDHE-RSA-AES256-GCM-SHA512:DHE-RSA-AES256-GCM-SHA512:ECDHE-RSA-AES256-GCM-SHA384:DHE-RSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-SHA384';
+ssl_ecdh_curve secp521r1:secp384r1:prime256v1;
 ssl_prefer_server_ciphers on;
-ssl_ecdh_curve secp384r1;
 #ssl_stapling on;
 #ssl_stapling_verify on;
 EOF
