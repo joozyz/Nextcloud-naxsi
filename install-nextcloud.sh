@@ -547,7 +547,7 @@ sudo -u www-data sed -in 's/http:\/\/localhost/https:\/\/'$YOURSERVERNAME'/' /va
 echo ""
 echo "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
 ###backup of the effected file .user.ini
-cp /var/www/nextcloud/.user.ini /var/www/nextcloud/.user.ini.bak
+cp /var/www/nextcloud/.user.ini /usr/local/src/.user.ini.bak
 ###apply Nextcloud optimizations
 sudo -u www-data sed -i "s/upload_max_filesize=.*/upload_max_filesize=10240M/" /var/www/nextcloud/.user.ini
 sudo -u www-data sed -i "s/post_max_size=.*/post_max_size=10240M/" /var/www/nextcloud/.user.ini
