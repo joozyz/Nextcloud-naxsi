@@ -7,7 +7,7 @@
 # changes to: cp /var/www/nextcloud/.user.ini
 # August, 31 2018
 ################################################
-# Ubuntu 18.04 LTS ARM64 - Nextcloud 13 
+# Ubuntu 18.04 LTS ARM64 - Nextcloud 13.0.6
 # ready for Nextcloud 14 already!
 ################################################
 #!/bin/bash
