@@ -3,9 +3,9 @@
 # https://www.c-rieger.de
 # https://github.com/riegercloud
 # INSTALL-NEXTCLOUD.SH
-# Version 4.1 AMD64
-# changes to the /etc/nginx/nginx.conf+ssl.conf
-# August, 23rd, 2018
+# Version 4.2 AMD64
+# changes to: cp /var/www/nextcloud/.user.ini
+# August, 31 2018
 ################################################
 # Ubuntu 18.04 LTS AMD64 - Nextcloud 13 
 # ready for Nextcloud 14 already!
