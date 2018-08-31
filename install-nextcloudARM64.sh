@@ -2,12 +2,12 @@
 # Carsten Rieger IT-Services
 # https://www.c-rieger.de
 # https://github.com/riegercloud
-# INSTALL-NEXTCLOUDARM64.SH
-# Version 4.1 ARM64
-# changes to the /etc/nginx/nginx.conf+ssl.conf
-# August, 23rd, 2018
+# INSTALL-NEXTCLOUD.SH
+# Version 4.2 AMD64
+# changes to: cp /var/www/nextcloud/.user.ini
+# August, 31 2018
 ################################################
-# Ubuntu 18.04 LTS ARM64 - Nextcloud 13.0.5
+# Ubuntu 18.04 LTS ARM64 - Nextcloud 13 
 # ready for Nextcloud 14 already!
 ################################################
 #!/bin/bash
@@ -547,7 +547,7 @@ sudo -u www-data sed -in 's/http:\/\/localhost/https:\/\/'$YOURSERVERNAME'/' /va
 echo ""
 echo "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
 ###backup of the effected file .user.ini
-cp /var/www/nextcloud/.user.ini /var/www/nextcloud/.user.ini.bak
+cp /var/www/nextcloud/.user.ini /usr/local/src/.user.ini.bak
 ###apply Nextcloud optimizations
 sudo -u www-data sed -i "s/upload_max_filesize=.*/upload_max_filesize=10240M/" /var/www/nextcloud/.user.ini
 sudo -u www-data sed -i "s/post_max_size=.*/post_max_size=10240M/" /var/www/nextcloud/.user.ini
