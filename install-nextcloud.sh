@@ -3,12 +3,10 @@
 # https://www.c-rieger.de
 # https://github.com/riegercloud
 # INSTALL-NEXTCLOUD.SH
-# Version 4.2 AMD64
-# changes to: cp /var/www/nextcloud/.user.ini
-# August, 31 2018
+# Version 5.0 AMD64
+# September, 06th 2018
 ################################################
-# Ubuntu 18.04 LTS AMD64 - Nextcloud 13.0.6
-# ready for Nextcloud 14 already!
+# Ubuntu 18.04 LTS AMD64 - Nextcloud 14
 ################################################
 #!/bin/bash
 ###global function to update and cleanup the environment
