@@ -5,8 +5,8 @@ The initial script (install-nextcloud.sh) will install your self hosted Nextclou
     MariaDB 10.3.9
     Nextcloud 14
     NGINX 1.15.3
-    OpenSSL 1.1.0h
-    PHP 7.2.9
+    OpenSSL 1.1.0
+    PHP 7.2.10
     Redis-Server
     self signed or Let's Encrypt SSL using the second script
     UFW (22, 80, 443)
