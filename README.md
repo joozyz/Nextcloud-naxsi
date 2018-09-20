@@ -16,3 +16,12 @@ The only precondition for the install-nextcloud.sh script is to utilize Ubuntu 1
 Ready to go? Let's start:
 
 Find out more information: <a href="https://www.c-rieger.de/spawn-your-nextcloud-server-using-one-shell-script/" target='_blank'>Build your Nextcloud Server using shell scripts only</a>
+
+Beyond that you will find additional scripts at /usr/local/src/install-nextcloud/
+
+    fail2ban.sh
+    renewal.sh
+    restart.sh
+    ssl-renewal.sh
+
+to optimize and maintain your system easily.
