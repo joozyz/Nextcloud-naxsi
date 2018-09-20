@@ -66,7 +66,8 @@ sed -i s/\#\ssl/\ssl/g /etc/nginx/ssl.conf
 ###ensure that dhparam is commented as long it was not generated 
 sed -i s/ssl_dhparam/\#ssl_dhparam/g /etc/nginx/ssl.conf
 ###adjust Nextclous config.php to the new domain name
-sudo -u www-data sed -in 's/'$YOURSERVERNAME'/'$DYNDNSNAME'/' /var/www/nextcloud/config/config.php
+sudo -u www-data php /var/www/nextcloud/occ config:system:set overwrite.cli.url --value=https://$DYNDNSNAME
+#sudo -u www-data sed -in 's/'$YOURSERVERNAME'/'$DYNDNSNAME'/' /var/www/nextcloud/config/config.php
 ###restart the cloud environment
 restart_all_services
 clear
