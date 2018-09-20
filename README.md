@@ -20,7 +20,7 @@ Find out more information: <a href="https://www.c-rieger.de/spawn-your-nextcloud
 Beyond that you will find additional scripts at /usr/local/src/install-nextcloud/
 
     fail2ban.sh
-    renewal.sh
+    optimize.sh
     restart.sh
     ssl-renewal.sh
 
