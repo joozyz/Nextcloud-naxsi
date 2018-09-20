@@ -50,12 +50,14 @@ clear
 cd /usr/local/src
 ###prepare the server environment
 mv /etc/apt/sources.list /etc/apt/sources.list.bak && touch /etc/apt/sources.list
-sed -i '$deb http://archive.ubuntu.com/ubuntu bionic main multiverse restricted universe' /etc/apt/sources.list
-sed -i '$adeb http://archive.ubuntu.com/ubuntu bionic-security main multiverse restricted universe' /etc/apt/sources.list
-sed -i '$adeb http://archive.ubuntu.com/ubuntu bionic-updates main multiverse restricted universe' /etc/apt/sources.list
-sed -i '$adeb http://nginx.org/packages/mainline/ubuntu/ bionic nginx' /etc/apt/sources.list
-sed -i '$adeb-src http://nginx.org/packages/mainline/ubuntu/ bionic nginx' /etc/apt/sources.list
-sed -i '$adeb [arch=amd64] http://ftp.hosteurope.de/mirror/mariadb.org/repo/10.3/ubuntu bionic main' /etc/apt/sources.list
+cat <<EOF >>/etc/apt/sources.list
+deb http://archive.ubuntu.com/ubuntu bionic main multiverse restricted universe
+deb http://archive.ubuntu.com/ubuntu bionic-security main multiverse restricted universe
+deb http://archive.ubuntu.com/ubuntu bionic-updates main multiverse restricted universe
+deb http://nginx.org/packages/mainline/ubuntu/ bionic nginx
+deb-src http://nginx.org/packages/mainline/ubuntu/ bionic nginx
+deb [arch=amd64] http://ftp.hosteurope.de/mirror/mariadb.org/repo/10.3/ubuntu bionic main
+EOF
 update_and_clean
 apt install software-properties-common zip unzip screen curl git wget ffmpeg libfile-fcntllock-perl -y
 apt remove nginx nginx-common nginx-full -y --allow-change-held-packages
