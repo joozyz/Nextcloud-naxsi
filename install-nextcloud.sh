@@ -49,7 +49,7 @@ clear
 ### START ###
 cd /usr/local/src
 ###prepare the server environment
-mv /etc/apt/sources.list /etc/apt/sources.list.bak
+mv /etc/apt/sources.list /etc/apt/sources.list.bak && touch /etc/apt/sources.list
 sed -i '$deb http://archive.ubuntu.com/ubuntu bionic main multiverse restricted universe' /etc/apt/sources.list
 sed -i '$adeb http://archive.ubuntu.com/ubuntu bionic-security main multiverse restricted universe' /etc/apt/sources.list
 sed -i '$adeb http://archive.ubuntu.com/ubuntu bionic-updates main multiverse restricted universe' /etc/apt/sources.list
