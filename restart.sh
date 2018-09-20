@@ -1,6 +1,6 @@
 ###
 # restart all services related to your Nextcloud instance
-# issue by e.g.:/root/restart.sh
+# issue by e.g.: /usr/local/src/install-nextcloud/restart.sh
 ###
 #!/bin/bash
 /usr/sbin/service nginx stop
