@@ -3,7 +3,7 @@
 # https://www.c-rieger.de
 # https://github.com/riegercloud
 # INSTALL-NEXTCLOUD.SH
-# Version 5.1 AMD64
+# Version 5.2 AMD64
 # September, 20th 2018
 ################################################
 # Ubuntu 18.04 LTS AMD64 - Nextcloud 14
@@ -307,9 +307,9 @@ echo ""
 ###restart MariaDB server andconnect to MariaDB
 service mysql restart && mysql -uroot <<EOF
 ###create Nextclouds DB and User
-CREATE DATABASE nextcloud CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+CREATE DATABASE ncdb CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
 CREATE USER $NEXTCLOUDDBUSER@localhost identified by '$NEXTCLOUDDBPASSWORD';
-GRANT ALL PRIVILEGES on nextcloud.* to $NEXTCLOUDDBUSER@localhost;
+GRANT ALL PRIVILEGES on ncdb.* to $NEXTCLOUDDBUSER@localhost;
 FLUSH privileges;
 EOF
 ###harden your MariDB server
@@ -516,7 +516,7 @@ echo "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 echo ""
 echo "Your NEXTCLOUD will now be installed silently - please be patient ..."
 echo ""
-sudo -u www-data php /var/www/nextcloud/occ maintenance:install --database "mysql" --database-name "nextcloud"  --database-user "$NEXTCLOUDDBUSER" --database-pass "$NEXTCLOUDDBPASSWORD" --admin-user "$NEXTCLOUDADMINUSER" --admin-pass "$NEXTCLOUDADMINUSERPASSWORD" --data-dir "/var/nc_data"
+sudo -u www-data php /var/www/nextcloud/occ maintenance:install --database "mysql" --database-name "ncdb"  --database-user "$NEXTCLOUDDBUSER" --database-pass "$NEXTCLOUDDBPASSWORD" --admin-user "$NEXTCLOUDADMINUSER" --admin-pass "$NEXTCLOUDADMINUSERPASSWORD" --data-dir "/var/nc_data"
 declare -l YOURSERVERNAME
 ###read and store the current hostname in lowercases
 YOURSERVERNAME=$(hostname)
@@ -609,10 +609,8 @@ maxretry = 3
 bantime = 36000
 findtime = 36000
 logpath = /var/nc_data/nextcloud.log
-
 [nginx-http-auth]
 enabled = true
-
 EOF
 update_and_clean
 ###install ufw
