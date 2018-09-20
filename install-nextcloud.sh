@@ -3,8 +3,8 @@
 # https://www.c-rieger.de
 # https://github.com/riegercloud
 # INSTALL-NEXTCLOUD.SH
-# Version 5.0 AMD64
-# September, 06th 2018
+# Version 5.1 AMD64
+# September, 20th 2018
 ################################################
 # Ubuntu 18.04 LTS AMD64 - Nextcloud 14
 ################################################
@@ -48,17 +48,17 @@ clear
 }
 ### START ###
 cd /usr/local/src
-update_and_clean
 ###prepare the server environment
+mv /etc/apt/sources.list /etc/apt/sources.list.bak
+sed -i '$deb http://archive.ubuntu.com/ubuntu bionic main multiverse restricted universe' /etc/apt/sources.list
+sed -i '$adeb http://archive.ubuntu.com/ubuntu bionic-security main multiverse restricted universe' /etc/apt/sources.list
+sed -i '$adeb http://archive.ubuntu.com/ubuntu bionic-updates main multiverse restricted universe' /etc/apt/sources.list
+sed -i '$adeb http://nginx.org/packages/mainline/ubuntu/ bionic nginx' /etc/apt/sources.list
+sed -i '$adeb-src http://nginx.org/packages/mainline/ubuntu/ bionic nginx' /etc/apt/sources.list
+sed -i '$adeb [arch=amd64] http://ftp.hosteurope.de/mirror/mariadb.org/repo/10.3/ubuntu bionic main' /etc/apt/sources.list
+update_and_clean
 apt install software-properties-common zip unzip screen curl git wget ffmpeg libfile-fcntllock-perl -y
 apt remove nginx nginx-common nginx-full -y --allow-change-held-packages
-###add the neccessary sources
-if [ ! -f /etc/apt/sources.list.d/nginx.list ]; then
-cat <<EOF > /etc/apt/sources.list.d/nginx.list
-deb http://nginx.org/packages/mainline/ubuntu/ bionic nginx
-deb-src http://nginx.org/packages/mainline/ubuntu/ bionic nginx
-EOF
-fi
 if [ ! -f /usr/local/src/nginx_signing.key ]; then
 wget http://nginx.org/keys/nginx_signing.key && apt-key add nginx_signing.key
 fi
@@ -113,16 +113,6 @@ mkdir -p /var/nc_data /var/www/letsencrypt /usr/local/tmp/cache /usr/local/tmp/s
 ###apply permissions
 chown -R www-data:www-data /upload_tmp /var/nc_data /var/www
 chown -R www-data:root /usr/local/tmp/sessions /usr/local/tmp/cache /usr/local/tmp/apc
-### prepare the environment for PHP
-if [ ! -f /etc/apt/sources.list.d/php.list ]; then
-cat <<EOF > /etc/apt/sources.list.d/php.list
-deb http://de.archive.ubuntu.com/ubuntu bionic main universe
-EOF
-apt update
-fi
-apt install language-pack-en-base -y
-sudo LC_ALL=en_US.UTF-8 add-apt-repository ppa:ondrej/php -y
-update_and_clean
 ###install PHP
 apt install php7.2-fpm php7.2-gd php7.2-mysql php7.2-curl php7.2-xml php7.2-zip php7.2-intl php7.2-mbstring php7.2-json php7.2-bz2 php7.2-ldap php-apcu imagemagick php-imagick -y
 ###adjust PHP
@@ -213,12 +203,6 @@ service php7.2-fpm restart
 service nginx restart
 ###install MariaDB
 apt-key adv --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 0xF1656F24C74CD1D8
-if [ ! -f /etc/apt/sources.list.d/mariadb.list ]; then
-cat <<EOF > /etc/apt/sources.list.d/mariadb.list
-deb [arch=amd64] http://ftp.hosteurope.de/mirror/mariadb.org/repo/10.3/ubuntu bionic main
-deb-src http://ftp.hosteurope.de/mirror/mariadb.org/repo/10.3/ubuntu bionic main
-EOF
-fi
 mariadbinfo
 apt update && apt install mariadb-server -y
 /usr/sbin/service mysql stop
@@ -229,11 +213,9 @@ cat <<EOF >/etc/mysql/my.cnf
 port = 3306
 socket = /var/run/mysqld/mysqld.sock
 default-character-set = utf8mb4
-
 [mysqld_safe]
 socket = /var/run/mysqld/mysqld.sock
 nice = 0
-
 [mysqld]
 user = mysql
 pid-file = /var/run/mysqld/mysqld.pid
@@ -292,18 +274,14 @@ character-set-server = utf8mb4
 collation-server = utf8mb4_general_ci
 transaction_isolation = READ-COMMITTED
 binlog_format = ROW
-
 [mysqldump]
 quick
 quote-names
 max_allowed_packet = 16M
-
 [mysql]
 #no-auto-rehash    # faster start of mysql but no tab completion
-
 [isamchk]
 key_buffer = 16M
-
 !include /etc/mysql/mariadb.cnf
 !includedir /etc/mysql/conf.d/
 EOF
@@ -555,7 +533,7 @@ sudo -u www-data php /var/www/nextcloud/occ background:cron
 sed -i '/);/d' /var/www/nextcloud/config/config.php
 cat <<EOF >>/var/www/nextcloud/config/config.php
 'activity_expire_days' => 14,
-'auth.bruteforce.protection.enabled' => true,
+'auth.bruteforce.protection.enabled' => false,
 'blacklisted_files' =>
 array (
 0 => '.htaccess',
