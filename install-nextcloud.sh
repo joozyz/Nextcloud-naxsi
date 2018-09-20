@@ -294,6 +294,10 @@ echo "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 echo "The Nextcloud-DB username and password - Attention: password is case-sensitive:"
 echo "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
 echo ""
+read -p "Nextcloud DB-Name: " NEXTCLOUDDBNAME
+echo ""
+echo "Your Nextcloud DB Name: "$NEXTCLOUDDBNAME
+echo ""
 read -p "Nextcloud DB-Username: " NEXTCLOUDDBUSER
 echo ""
 echo "Your Nextcloud-DB user: "$NEXTCLOUDDBUSER
@@ -307,9 +311,9 @@ echo ""
 ###restart MariaDB server andconnect to MariaDB
 service mysql restart && mysql -uroot <<EOF
 ###create Nextclouds DB and User
-CREATE DATABASE ncdb CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+CREATE DATABASE $NEXTCLOUDDBNAME CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
 CREATE USER $NEXTCLOUDDBUSER@localhost identified by '$NEXTCLOUDDBPASSWORD';
-GRANT ALL PRIVILEGES on ncdb.* to $NEXTCLOUDDBUSER@localhost;
+GRANT ALL PRIVILEGES on $NEXTCLOUDDBNAME.* to $NEXTCLOUDDBUSER@localhost;
 FLUSH privileges;
 EOF
 ###harden your MariDB server
@@ -516,13 +520,14 @@ echo "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 echo ""
 echo "Your NEXTCLOUD will now be installed silently - please be patient ..."
 echo ""
-sudo -u www-data php /var/www/nextcloud/occ maintenance:install --database "mysql" --database-name "ncdb"  --database-user "$NEXTCLOUDDBUSER" --database-pass "$NEXTCLOUDDBPASSWORD" --admin-user "$NEXTCLOUDADMINUSER" --admin-pass "$NEXTCLOUDADMINUSERPASSWORD" --data-dir "/var/nc_data"
+sudo -u www-data php /var/www/nextcloud/occ maintenance:install --database "mysql" --database-name "$NEXTCLOUDDBNAME"  --database-user "$NEXTCLOUDDBUSER" --database-pass "$NEXTCLOUDDBPASSWORD" --admin-user "$NEXTCLOUDADMINUSER" --admin-pass "$NEXTCLOUDADMINUSERPASSWORD" --data-dir "/var/nc_data"
 declare -l YOURSERVERNAME
 ###read and store the current hostname in lowercases
 YOURSERVERNAME=$(hostname)
 sudo -u www-data cp /var/www/nextcloud/config/config.php /var/www/nextcloud/config/config.php.bak
 sudo -u www-data php /var/www/nextcloud/occ config:system:set trusted_domains 0 --value=$YOURSERVERNAME
-sudo -u www-data sed -in 's/http:\/\/localhost/https:\/\/'$YOURSERVERNAME'/' /var/www/nextcloud/config/config.php
+sudo -u www-data php /var/www/nextcloud/occ config:system:set overwrite.cli.url --value=https://$YOURSERVERNAME
+# sudo -u www-data sed -in 's/http:\/\/localhost/https:\/\/'$YOURSERVERNAME'/' /var/www/nextcloud/config/config.php
 echo ""
 echo "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
 ###backup of the effected file .user.ini
