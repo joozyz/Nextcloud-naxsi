@@ -1,6 +1,7 @@
 ####
-# create a daily cronjob, e.g.
-# 5 1 * * * /scripts/optimize.sh 2&>1
+# create a daily cronjob, e.g.:
+# crontab -e
+# 5 1 * * * /root/optimize.sh > /dev/null 2>&1
 ####
 #!/bin/bash
 redis-cli -s /var/run/redis/redis-server.sock <<EOF
