@@ -1,4 +1,5 @@
 ####
+# Optimize your Nextcloud instance
 # create a daily cronjob, e.g.:
 # crontab -e
 # 5 1 * * * /root/optimize.sh > /dev/null 2>&1
