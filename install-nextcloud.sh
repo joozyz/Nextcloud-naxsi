@@ -204,6 +204,7 @@ mount -a
 service php7.2-fpm restart
 service nginx restart
 ###install MariaDB
+mariadbinfo
 apt update && apt install mariadb-server -y
 /usr/sbin/service mysql stop
 ###configure MariaDB
