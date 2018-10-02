@@ -5,7 +5,7 @@
 # INSTALL-NEXTCLOUD.SH
 # Version 6.0
 # OpenSSL 1.1.1, TLSv1.3
-# Octobre, 02nd 2018
+# October, 02nd 2018
 ################################################
 # Ubuntu 18.04 LTS AMD64 - Nextcloud 14
 ################################################
