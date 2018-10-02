@@ -65,8 +65,20 @@ update_and_clean
 apt install software-properties-common zip unzip screen curl git wget ffmpeg libfile-fcntllock-perl -y
 apt remove nginx nginx-common nginx-full -y --allow-change-held-packages
 update_and_clean
-###instal NGINX
-apt install nginx -y
+###instal NGINX using TLSv1.3, OpenSSL 1.1.1
+mkdir /usr/local/src/nginx && cd /usr/local/src/nginx/
+apt install dpkg-dev -y && apt source nginx
+cd /usr/local/src && apt install git -y
+git clone https://github.com/openssl/openssl.git
+cd openssl && git checkout OpenSSL_1_1_1-stable
+cp /usr/local/src/install-nextcloud/rules.nginx /usr/local/src/nginx/nginx-1.15.4/debian/rules
+sed -i "s/.*-Werror.*/# &/" /usr/local/src/nginx/nginx-1.15.4/auto/cc/gcc
+cd /usr/local/src/nginx/nginx-1.15.4/
+apt build-dep nginx -y && dpkg-buildpackage -b
+cd /usr/local/src/nginx/
+dpkg -i nginx_1.15.4-1~bionic_amd64.deb
+service nginx restart && apt-mark hold nginx
+# apt install nginx -y
 ###enable NGINX autostart
 systemctl enable nginx.service
 ### prepare the NGINX
